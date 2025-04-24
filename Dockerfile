@@ -1,0 +1,14 @@
+FROM python:3.9-slim
+
+WORKDIR /app
+
+# Copy requirements first for better caching
+COPY skyvia-mcp/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install pydantic[email]
+
+# Copy the rest of the application
+COPY skyvia-mcp/ .
+
+# Set the entrypoint to run the server
+ENTRYPOINT ["python", "main.py"]

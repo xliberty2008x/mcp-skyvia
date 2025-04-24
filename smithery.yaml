@@ -1,0 +1,16 @@
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    required:
+      - skyviaApiToken
+    properties:
+      skyviaApiToken:
+        type: string
+        description: "The API token for accessing the Skyvia API. This token should be kept secure and not shared."
+  commandFunction: |
+    (config) => ({
+      command: 'python',
+      args: ['main.py', '--skyvia-api-token', config.skyviaApiToken],
+      env: {}
+    })

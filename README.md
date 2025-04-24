@@ -115,12 +115,31 @@ This server provides tools grouped by Skyvia resource type:
 
 ## Deployment on Smithery.ai
 
-1.  Ensure your Skyvia API token is configured as a secret or environment variable in your smithery.ai project settings (e.g., named `SKYVIA_API_TOKEN`).
-2.  Configure the smithery.ai MCP server connection to run the command, passing the token:
-    ```
-    python main.py --skyvia-api-token ${SKYVIA_API_TOKEN}
-    ```
-    (Adjust the variable name `${SKYVIA_API_TOKEN}` if you named it differently in Smithery).
+This project is configured for easy deployment on Smithery.ai using the provided Dockerfile and smithery.yaml configuration.
+
+### Deployment Steps
+
+1. **Add/Claim the Server on Smithery.ai**:
+   - Log in to your Smithery.ai account
+   - Add a new server or claim the existing "skyvia-mcp" server
+   - Select the GitHub repository: `https://github.com/xliberty2008x/mcp-skyvia.git`
+
+2. **Configure the Deployment**:
+   - When prompted, provide your Skyvia API token in the configuration
+   - This token will be securely stored by Smithery and passed to the server at runtime
+   - The token is never stored in the codebase itself
+
+3. **Deploy the Server**:
+   - Complete the deployment process on Smithery
+   - The server will be built using the provided Dockerfile
+   - The smithery.yaml configuration will ensure the API token is properly passed to the server
+
+### Configuration Files
+
+- **Dockerfile**: Located in the repository root, defines how to build the server image
+- **smithery.yaml**: Defines the server startup configuration and required parameters (skyviaApiToken)
+
+The deployment uses a stdio-based MCP server over WebSocket connections, as required by Smithery.ai.
 
 ## Contributing
 
