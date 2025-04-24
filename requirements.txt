@@ -1,3 +1,5 @@
 fastmcp
 httpx
 python-dotenv
+websockets>=11.0.3
+urllib3>=2.0.0

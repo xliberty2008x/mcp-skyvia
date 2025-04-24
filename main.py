@@ -3,6 +3,7 @@ Skyvia MCP Server: Main entry point
 """
 import sys
 import argparse
+import os
 from fastmcp import FastMCP
 from api.config import (
     SERVER_NAME,
@@ -13,6 +14,9 @@ from api.config import (
     set_api_key
 )
 
+# Initialize FastMCP with WebSocket compatibility
+# The transport is automatically handled when deployed on Smithery
+# FastMCP adapts to use WebSockets when needed
 mcp = FastMCP(
     SERVER_NAME,
     description=SERVER_DESCRIPTION,
@@ -30,12 +34,6 @@ backups.register_tools(mcp)
 agents.register_tools(mcp)
 account.register_tools(mcp)
 endpoints.register_tools(mcp)
-# automations.register_tools(mcp)
-# backups.register_tools(mcp)
-# connections.register_tools(mcp)
-# endpoints.register_tools(mcp)
-# integrations.register_tools(mcp)
-# workspaces.register_tools(mcp)
 
 
 def main():

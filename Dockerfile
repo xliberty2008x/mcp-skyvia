@@ -1,4 +1,5 @@
-FROM python:3.10-slim
+# Builder stage
+FROM python:3.10-slim AS builder
 
 WORKDIR /app
 
@@ -10,5 +11,17 @@ RUN pip install pydantic[email]
 # Copy the rest of the application
 COPY . .
 
-# Set the entrypoint to run the server
+# Final stage
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# Copy installed packages and application from builder
+COPY --from=builder /usr/local/lib/python3.10/site-packages /usr/local/lib/python3.10/site-packages
+COPY --from=builder /app /app
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
+
+# Properly formatted ENTRYPOINT
 ENTRYPOINT ["python", "main.py"]
